@@ -1,7 +1,7 @@
 package edu.escuelaing.arep.model;
 
 public class User {
-    private String id;
+    private long id;
     private String firstName;
     private String lastName;
     private String email;
@@ -14,11 +14,11 @@ public class User {
 		this.email = email;
 	}
 	
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 	
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	

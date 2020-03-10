@@ -7,24 +7,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.escuelaing.arep.app.StandardResponse;
+import edu.escuelaing.arep.model.User;
+import edu.escuelaing.arep.services.UserServices;
+import edu.escuelaing.arep.services.impl.UserServicesImpl;
+
 import com.google.gson.Gson;
 
 public class SparkWebApp {
 
+	private static UserServicesImpl userServices; 
+	
 	public static void main(String[] args) {
+		userServices = new UserServicesImpl(); 
 		port(getPort());
 
-		get("/hello", (request, response) -> {
+		get("/users", (request, response) -> {
 			response.type("application/json");	
-			
-			ArrayList<String> strList = new ArrayList<String>();
-			strList.add("hola1");
-			strList.add("hola2");
-			strList.add("hola3");
-			strList.add("hola4");
-			strList.add("hola5");
-			
-			return new Gson().toJson( new StandardResponse("accepted", new Gson().toJsonTree(strList)) );
+			return new Gson().toJson(
+					new StandardResponse("Accepted",new Gson()
+					.toJsonTree(userServices.getAll())));
 		});
 	}
 
