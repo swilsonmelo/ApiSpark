@@ -11,23 +11,21 @@ import edu.escuelaing.arep.services.UserServices;
 
 public class UserServicesImpl implements UserServices {
 	
-	private HashMap<String, User> users;	
+	private HashMap<Long, User> users;	
+
 	
 	public UserServicesImpl() {
-		users = new HashMap<String, User>();
+		users = new HashMap<Long, User>();
 		User user = new User("Valentina", "siabatto", "vale.siabatto@mail.com");
-		users.put(user.getEmail(), user);
+		user.setId(1);
+		users.put((long) 1, user);
 		user = new User("Andres", "Villamil", "andres.villamil@mail.com");
-		users.put(user.getEmail(), user);
+		user.setId(2);
+		users.put((long) 2, user);
 		user = new User("willson", "melo", "willson.melo@mail.com");
-		users.put(user.getEmail(), user);
-	}
-
-	@Override
-	public User add(User user) {
-		String email = user.getEmail();
-		users.put(email, user);		
-		return user;
+		user.setId(3);
+		users.put((long) 3, user);
+		
 	}
 
 	@Override
@@ -39,18 +37,22 @@ public class UserServicesImpl implements UserServices {
 		return usersList;
 	}
 	
-	/*
+	@Override
+	public User add(User user) {
+		long newId = (long) (users.size()+1);
+		user.setId(newId);
+		users.put(newId, user);		
+		return user;
+	}
+
 	@Override
 	public User getById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return users.get(id);
 	}
-	*/
 	
 	@Override
-	public User getByEmail(String email) {
-		User user = users.get(email);
-		return user;
+	public User delete(long id) {
+		return users.remove(id);
 	}
 
 }

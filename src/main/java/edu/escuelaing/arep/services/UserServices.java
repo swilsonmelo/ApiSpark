@@ -10,8 +10,10 @@ public interface UserServices {
 	
 	public List<User> getAll();
 	
-	//public User getById(long id);
+	public User getById(long id);
 	
-	public User getByEmail(String email);	
+	public User delete(long id);
+	
+	//public User getByEmail(String email);	
 
 }
