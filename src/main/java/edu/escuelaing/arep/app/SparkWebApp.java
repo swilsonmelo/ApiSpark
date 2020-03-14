@@ -4,6 +4,9 @@ import static spark.Spark.get;
 import static spark.Spark.post;
 import static spark.Spark.delete;
 import static spark.Spark.port;
+import static spark.Spark.after;
+
+import spark.Filter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +26,11 @@ public class SparkWebApp {
 		userServices = new UserServicesImpl(); 
 		port(getPort());
 
+        after((Filter) (request, response) -> {
+            response.header("Access-Control-Allow-Origin", "*");
+            response.header("Access-Control-Allow-Methods", "*");
+        });
+		
 		get("/users", (request, response) -> {
 			response.type("application/json");	
 			return new Gson().toJson(
