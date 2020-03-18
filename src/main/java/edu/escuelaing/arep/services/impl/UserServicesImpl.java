@@ -1,47 +1,36 @@
 package edu.escuelaing.arep.services.impl;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import edu.escuelaing.arep.dao.ConnectionDao;
 import edu.escuelaing.arep.model.User;
 import edu.escuelaing.arep.services.UserServices;
+import edu.escuelaing.arep.dao.*;
 
 public class UserServicesImpl implements UserServices {
 	
-	private HashMap<Long, User> users;	
-
+	ConnectionDao connDao;
+	Connection conn;	
 	
 	public UserServicesImpl() {
-		users = new HashMap<Long, User>();
-		User user = new User("Valentina", "siabatto", "vale.siabatto@mail.com");
-		user.setId(1);
-		users.put((long) 1, user);
-		user = new User("Andres", "Villamil", "andres.villamil@mail.com");
-		user.setId(2);
-		users.put((long) 2, user);
-		user = new User("willson", "melo", "willson.melo@mail.com");
-		user.setId(3);
-		users.put((long) 3, user);
-		
+		connDao = new ConnectionDao();
+		conn = connDao.retriveConnection();				
 	}
 
 	@Override
 	public List<User> getAll() {
-		List<User> usersList = new ArrayList<User>();
-		for(Map.Entry user: users.entrySet()) {
-			usersList.add((User) user.getValue());
-		}		
+		List<User> usersList = connDao.getUsers(conn);		
 		return usersList;
 	}
 	
 	@Override
 	public User add(User user) {
-		long newId = (long) (users.size()+1);
-		user.setId(newId);
-		users.put(newId, user);		
+		connDao.addUser(conn, user);		
 		return user;
 	}
 
@@ -51,8 +40,8 @@ public class UserServicesImpl implements UserServices {
 	}
 	
 	@Override
-	public User delete(long id) {
-		return users.remove(id);
+	public void delete(long id) {
+		connDao.deleteUser(conn, id);
 	}
 
 }

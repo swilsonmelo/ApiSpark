@@ -12,7 +12,7 @@ public interface UserServices {
 	
 	public User getById(long id);
 	
-	public User delete(long id);
+	public void delete(long id);
 	
 	//public User getByEmail(String email);	
 

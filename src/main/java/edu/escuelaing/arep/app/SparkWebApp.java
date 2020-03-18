@@ -27,7 +27,6 @@ public class SparkWebApp {
 
 		options("/*",
 		        (request, response) -> {
-
 		            String accessControlRequestHeaders = request
 		                    .headers("Access-Control-Request-Headers");
 		            if (accessControlRequestHeaders != null) {
@@ -78,11 +77,9 @@ public class SparkWebApp {
 		delete("/users/:id", (request, response) -> {
 		    response.type("application/json");
 		    long id = Long.parseLong(request.params(":id"));
-		    User user = userServices.delete(id);
-		    System.out.println(user);
+		    userServices.delete(id);
 		    return new Gson().toJson(
-					new StandardResponse("Accepted", new Gson()
-							.toJsonTree(user)));
+					new StandardResponse("Accepted"));
 		});
 		
 	}

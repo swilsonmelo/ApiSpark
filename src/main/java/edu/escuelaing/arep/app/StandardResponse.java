@@ -8,11 +8,14 @@ public class StandardResponse {
     private JsonElement data;
     
     public StandardResponse(String message, JsonElement data) {
-		super();
 		this.status = message;
 		this.data = data;
 	}
 
+    public StandardResponse(String message) {
+		this.status = message;
+	}
+    
 	public String getStatus() {
 		return status;
 	}
